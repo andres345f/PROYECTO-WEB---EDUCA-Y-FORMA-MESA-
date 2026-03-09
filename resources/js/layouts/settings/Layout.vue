@@ -19,7 +19,7 @@ const sidebarNavItems: NavItem[] = [
     },
     {
         title: 'Password',
-        href: route('password.edit'),
+        href: route('user-password.edit'),
     },
     {
         title: 'Two-Factor Auth',

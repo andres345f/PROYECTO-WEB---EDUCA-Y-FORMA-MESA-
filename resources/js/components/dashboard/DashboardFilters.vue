@@ -17,7 +17,7 @@ const props = defineProps<{
 const form = reactive({ ...props.filtros });
 
 function aplicar() {
-    router.get(route('dashboard.kpis'),
+    router.get(route('dashboard.index'),
         {
             desde: form.desde,
             hasta: form.hasta,
