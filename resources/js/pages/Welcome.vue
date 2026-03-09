@@ -32,7 +32,7 @@ defineProps<{
                     <div class="bg-indigo-600 p-2 rounded-lg">
                         <GraduationCap class="w-6 h-6 text-white" />
                     </div>
-                    <span class="text-xl font-bold tracking-tight text-slate-900">EduConnect</span>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">EducaYForma</span>
                 </div>
 
                 <!-- Botones de Autenticación (Derecha por estándar UX) -->

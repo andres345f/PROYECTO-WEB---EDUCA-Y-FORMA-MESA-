@@ -48,7 +48,21 @@ class TutorController extends Controller
             'descripcion' => 'nullable|string',
             'duracion_semanas' => 'nullable|integer',
             'duracion_horas' => 'nullable|integer',
-        ], [], [
+        ], [
+            'nombre.required' => 'El nombre del tutor es obligatorio',
+            'nombre.string' => 'El nombre del tutor debe ser una cadena de texto',
+            'nombre.max' => 'El nombre del tutor no puede tener más de 150 caracteres',
+            'id_categoria.required' => 'La categoría es obligatoria',
+            'id_categoria.exists' => 'La categoría seleccionada no existe',
+            'costo_base.required' => 'El costo base es obligatorio',
+            'costo_base.numeric' => 'El costo base debe ser un número válido',
+            'costo_base.min' => 'El costo base no puede ser negativo',
+            'modalidad.required' => 'La modalidad es obligatoria',
+            'modalidad.in' => 'La modalidad seleccionada no es válida',
+            'descripcion.string' => 'La descripción debe ser una cadena de texto',
+            'duracion_semanas.integer' => 'La duración en semanas debe ser un número entero',
+            'duracion_horas.integer' => 'La duración en horas debe ser un número entero',
+        ], [
             'nombre' => 'nombre',
             'id_categoria' => 'categoría',
             'costo_base' => 'costo base',
@@ -90,7 +104,20 @@ class TutorController extends Controller
             'modalidad' => 'required|in:VIRTUAL,PRESENCIAL,HIBRIDO',
             'estado_activo' => 'boolean', // Campo extra que suele editarse
             'descripcion' => 'nullable|string',
-        ], [], [
+        ], [
+            'nombre.required' => 'El nombre del tutor es obligatorio',
+            'nombre.string' => 'El nombre del tutor debe ser una cadena de texto',
+            'nombre.max' => 'El nombre del tutor no puede tener más de 150 caracteres',
+            'id_categoria.required' => 'La categoría es obligatoria',
+            'id_categoria.exists' => 'La categoría seleccionada no existe',
+            'costo_base.required' => 'El costo base es obligatorio',
+            'costo_base.numeric' => 'El costo base debe ser un número válido',
+            'costo_base.min' => 'El costo base no puede ser negativo',
+            'modalidad.required' => 'La modalidad es obligatoria',
+            'modalidad.in' => 'La modalidad seleccionada no es válida',
+            'estado_activo.boolean' => 'El estado activo debe ser verdadero o falso',
+            'descripcion.string' => 'La descripción debe ser una cadena de texto',
+        ], [
             'nombre' => 'nombre',
             'id_categoria' => 'categoría',
             'costo_base' => 'costo base',

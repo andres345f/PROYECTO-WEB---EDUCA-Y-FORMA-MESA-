@@ -55,9 +55,11 @@ class CategoriaController extends Controller
         $validated = $request->validate([
             'nombre' => 'required|string|max:100',
             'id_categoria_padre' => 'nullable|exists:categorianivel,id',
-        ], [], [
-            'nombre' => 'nombre de la categoría',
-            'id_categoria_padre' => 'categoría padre',
+        ] ,[
+            'nombre.required' => 'El nombre de la categoría es obligatorio',
+            'nombre.string' => 'El nombre de la categoría debe ser una cadena de texto',
+            'nombre.max' => 'El nombre de la categoría no puede tener más de 100 caracteres',
+            'id_categoria_padre.exists' => 'La categoría padre seleccionada no existe',
         ]);
         // B. Creación
         CategoriaNivel::create($validated);
@@ -88,7 +90,12 @@ class CategoriaController extends Controller
             $validated = $request->validate([
                 'nombre' => 'required|string|max:100',
                 'id_categoria_padre' => 'nullable|exists:categorianivel,id',
-            ], [], [
+            ], [
+                'nombre.required' => 'El nombre de la categoría es obligatorio',
+                'nombre.string' => 'El nombre de la categoría debe ser una cadena de texto',
+                'nombre.max' => 'El nombre de la categoría no puede tener más de 100 caracteres',
+                'id_categoria_padre.exists' => 'La categoría padre seleccionada no existe',
+            ], [
                 'nombre' => 'nombre de la categoría',
                 'id_categoria_padre' => 'categoría padre',
             ]);

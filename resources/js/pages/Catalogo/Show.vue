@@ -184,7 +184,7 @@ const getInitials = (name: string) => {
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-2xl font-black text-foreground">${{ calendario.costo_total }}</p>
+                                    <p class="text-2xl font-black text-foreground">BOB {{ calendario.costo_total }}</p>
                                     <p class="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Costo Total</p>
                                 </div>
                             </div>

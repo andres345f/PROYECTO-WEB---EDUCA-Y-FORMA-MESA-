@@ -124,7 +124,15 @@ class LicenciaController extends Controller
             'id_asistencia' => 'required|exists:asistencia,id|unique:licencia,id_asistencia',
             'motivo' => 'required|string',
             'evidencia_url' => 'nullable|image|max:4096',
-        ], [], [
+        ], [
+            'id_asistencia.required' => 'La asistencia es obligatoria',
+            'id_asistencia.exists' => 'La asistencia seleccionada no existe',
+            'id_asistencia.unique' => 'Ya existe una licencia para esta asistencia',
+            'motivo.required' => 'El motivo de la licencia es obligatorio',
+            'motivo.string' => 'El motivo debe ser una cadena de texto',
+            'evidencia_url.image' => 'La evidencia debe ser una imagen válida',
+            'evidencia_url.max' => 'La evidencia no puede superar los 4 MB',
+        ], [
             'id_asistencia' => 'asistencia',
             'motivo' => 'motivo',
             'evidencia_url' => 'evidencia',
@@ -175,6 +183,7 @@ class LicenciaController extends Controller
                 $fechaSugerida = $slot['fecha_sesion'] ?? null;
             }
         }
+        $licencia->evidencia_url = asset('storage/'.$licencia->evidencia_url);
 
         return Inertia::render('Licencias/Edit', [
             'licencia' => $licencia,
@@ -219,7 +228,15 @@ class LicenciaController extends Controller
                 'id_asistencia' => 'required|exists:asistencia,id|unique:licencia,id_asistencia,' . $licencia->id_licencia . ',id_licencia',
                 'motivo' => 'required|string',
                 'evidencia_url' => 'nullable|image|max:4096',
-            ], [], [
+            ], [
+                'id_asistencia.required' => 'La asistencia es obligatoria',
+                'id_asistencia.exists' => 'La asistencia seleccionada no existe',
+                'id_asistencia.unique' => 'Ya existe una licencia para esta asistencia',
+                'motivo.required' => 'El motivo de la licencia es obligatorio',
+                'motivo.string' => 'El motivo debe ser una cadena de texto',
+                'evidencia_url.image' => 'La evidencia debe ser una imagen válida',
+                'evidencia_url.max' => 'La evidencia no puede superar los 4 MB',
+            ], [
                 'id_asistencia' => 'asistencia',
                 'motivo' => 'motivo',
                 'evidencia_url' => 'evidencia',
@@ -246,7 +263,13 @@ class LicenciaController extends Controller
             'estado_aprobacion' => 'required|in:PENDIENTE,APROBADA,RECHAZADA',
             'observacion_admin' => 'nullable|string',
             'fecha_reprogramacion' => 'nullable|date|after_or_equal:today',
-        ], [], [
+        ], [
+            'estado_aprobacion.required' => 'El estado de aprobación es obligatorio',
+            'estado_aprobacion.in' => 'El estado de aprobación seleccionado no es válido',
+            'observacion_admin.string' => 'La observación debe ser una cadena de texto',
+            'fecha_reprogramacion.date' => 'La fecha de reprogramación debe ser una fecha válida',
+            'fecha_reprogramacion.after_or_equal' => 'La fecha de reprogramación debe ser hoy o una fecha futura',
+        ], [
             'estado_aprobacion' => 'estado de aprobación',
             'observacion_admin' => 'observación del administrador',
             'fecha_reprogramacion' => 'fecha de reprogramación',

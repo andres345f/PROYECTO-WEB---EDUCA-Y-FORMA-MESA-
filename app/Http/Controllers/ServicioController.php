@@ -63,7 +63,16 @@ class ServicioController extends Controller
 
             'modalidad' => 'required|in:VIRTUAL,PRESENCIAL,HIBRIDO',
             'descripcion' => 'nullable|string',
-        ], [], [
+        ], [
+            'nombre.required' => 'El nombre del servicio es obligatorio',
+            'nombre.string' => 'El nombre del servicio debe ser una cadena de texto',
+            'nombre.max' => 'El nombre del servicio no puede tener más de 150 caracteres',
+            'id_categoria.required' => 'La categoría del servicio es obligatoria',
+            'id_categoria.exists' => 'La categoría seleccionada no existe',
+            'modalidad.required' => 'La modalidad del servicio es obligatoria',
+            'modalidad.in' => 'La modalidad seleccionada no es válida',
+            'descripcion.string' => 'La descripción debe ser una cadena de texto',
+        ], [
             'nombre' => 'nombre',
             'id_categoria' => 'categoría',
             'modalidad' => 'modalidad',
@@ -104,7 +113,16 @@ class ServicioController extends Controller
             'modalidad' => 'required|in:VIRTUAL,PRESENCIAL,HIBRIDO',
             'descripcion' => 'nullable|string',
 
-        ], [], [
+        ], [
+            'nombre.required' => 'El nombre del servicio es obligatorio',
+            'nombre.string' => 'El nombre del servicio debe ser una cadena de texto',
+            'nombre.max' => 'El nombre del servicio no puede tener más de 150 caracteres',
+            'id_categoria.required' => 'La categoría del servicio es obligatoria',
+            'id_categoria.exists' => 'La categoría seleccionada no existe',
+            'modalidad.required' => 'La modalidad del servicio es obligatoria',
+            'modalidad.in' => 'La modalidad seleccionada no es válida',
+            'descripcion.string' => 'La descripción debe ser una cadena de texto',
+        ], [
             'nombre' => 'nombre',
             'id_categoria' => 'categoría',
             'modalidad' => 'modalidad',

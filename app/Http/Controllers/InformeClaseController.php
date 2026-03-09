@@ -63,7 +63,14 @@ class InformeClaseController extends Controller
             'temas_vistos' => 'nullable|string',
             'tareas_asignadas' => 'nullable|string',
             'desempenio' => 'nullable|in:BAJO,MEDIO,ALTO,EXCELENTE',
-        ], [], [
+        ], [
+            'id_asistencia.required' => 'La asistencia es obligatoria',
+            'id_asistencia.exists' => 'La asistencia seleccionada no existe',
+            'id_asistencia.unique' => 'Ya existe un informe para esta asistencia',
+            'temas_vistos.string' => 'Los temas vistos deben ser una cadena de texto',
+            'tareas_asignadas.string' => 'Las tareas asignadas deben ser una cadena de texto',
+            'desempenio.in' => 'El desempeño seleccionado no es válido',
+        ], [
             'id_asistencia' => 'asistencia',
             'temas_vistos' => 'temas vistos',
             'tareas_asignadas' => 'tareas asignadas',
@@ -102,7 +109,14 @@ class InformeClaseController extends Controller
             'temas_vistos' => 'nullable|string',
             'tareas_asignadas' => 'nullable|string',
             'desempenio' => 'nullable|in:BAJO,MEDIO,ALTO,EXCELENTE',
-        ], [], [
+        ], [
+            'id_asistencia.required' => 'La asistencia es obligatoria',
+            'id_asistencia.exists' => 'La asistencia seleccionada no existe',
+            'id_asistencia.unique' => 'Ya existe un informe para esta asistencia',
+            'temas_vistos.string' => 'Los temas vistos deben ser una cadena de texto',
+            'tareas_asignadas.string' => 'Las tareas asignadas deben ser una cadena de texto',
+            'desempenio.in' => 'El desempeño seleccionado no es válido',
+        ], [
             'id_asistencia' => 'asistencia',
             'temas_vistos' => 'temas vistos',
             'tareas_asignadas' => 'tareas asignadas',

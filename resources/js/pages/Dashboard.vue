@@ -91,7 +91,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 // ---- Utilidades de formato ----
 const moneda = (v: number) =>
-    new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(v);
+    new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB', maximumFractionDigits: 0 }).format(v);
 
 // ---- Distribuciones como segmentos ----
 const coloresEstado: Record<string, string> = {
