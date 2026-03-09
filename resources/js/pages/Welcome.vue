@@ -87,12 +87,12 @@ defineProps<{
                             Encontrar un Tutor
                             <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link 
+                        <!-- <Link 
                             :href="route('register')" 
                             class="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 font-bold rounded-xl border-2 border-slate-200 hover:border-indigo-200 hover:bg-slate-50 transition-all flex items-center justify-center"
                         >
                             Quiero Enseñar
-                        </Link>
+                        </Link> -->
                     </div>
                 </div>
             </div>
