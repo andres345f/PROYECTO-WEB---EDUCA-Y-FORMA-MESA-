@@ -21,10 +21,26 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        Validator::make($input, [
-            ...$this->profileRules(),
-            'password' => $this->passwordRules(),
-        ])->validate();
+        Validator::make(
+            $input,
+            [
+                ...$this->profileRules(),
+                'password' => $this->passwordRules(),
+            ],
+            [
+                'name.required' => 'El nombre es obligatorio.',
+                'name.string' => 'El nombre debe ser texto.',
+                'name.max' => 'El nombre no puede tener más de 255 caracteres.',
+
+                'email.required' => 'El correo es obligatorio.',
+                'email.email' => 'El correo debe tener un formato válido.',
+                'email.unique' => 'Este correo ya está registrado.',
+
+                'password.required' => 'La contraseña es obligatoria.',
+                'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+                'password.confirmed' => 'Las contraseñas no coinciden.',
+            ]
+        )->validate();
 
 
         // 2. Usar Transacción para asegurar integridad
