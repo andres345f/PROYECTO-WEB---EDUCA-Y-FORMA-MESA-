@@ -9,6 +9,9 @@ interface Sesion {
     id: number;
     fecha_sesion: string;
     numero_sesion: number;
+    hora_inicio?: string | null;
+    hora_fin?: string | null;
+    servicio_nombre?: string | null;
 }
 
 const props = defineProps<{ sesiones: Sesion[] }>();
@@ -40,7 +43,7 @@ const submit = () => form.post(route('informes-clase.store'));
                         <select v-model="form.id_asistencia" class="w-full px-3 py-2 border border-border rounded-lg bg-card">
                             <option value="">Seleccione</option>
                             <option v-for="sesion in sesiones" :key="sesion.id" :value="String(sesion.id)">
-                                #{{ sesion.id }} - {{ sesion.fecha_sesion }} (Sesión {{ sesion.numero_sesion }})
+                                #{{ sesion.id }} - {{ sesion.servicio_nombre ?? 'Servicio sin nombre' }} | {{ sesion.fecha_sesion }} {{ sesion.hora_inicio ?? '--:--' }}-{{ sesion.hora_fin ?? '--:--' }} (Sesión {{ sesion.numero_sesion }})
                             </option>
                         </select>
                     </div>

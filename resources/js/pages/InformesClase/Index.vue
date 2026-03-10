@@ -12,6 +12,19 @@ interface Informe {
     temas_vistos?: string | null;
     tareas_asignadas?: string | null;
     desempenio?: 'BAJO' | 'MEDIO' | 'ALTO' | 'EXCELENTE' | null;
+    asistencia?: {
+        sesion?: {
+            fecha_sesion?: string | null;
+            hora_inicio?: string | null;
+            hora_fin?: string | null;
+            numero_sesion?: number | null;
+            calendario?: {
+                servicio?: {
+                    nombre?: string | null;
+                };
+            };
+        };
+    };
 }
 
 interface Pagination<T> {
@@ -82,6 +95,8 @@ const eliminar = (id: number) => {
                             <tr class="border-b border-border text-left">
                                 <th class="py-2 pr-3">ID</th>
                                 <th class="py-2 pr-3">Sesión</th>
+                                <th class="py-2 pr-3">Servicio</th>
+                                <th class="py-2 pr-3">Fecha y hora</th>
                                 <th class="py-2 pr-3">Temas vistos</th>
                                 <th class="py-2 pr-3">Desempeño</th>
                                 <th class="py-2 pr-3">Acciones</th>
@@ -90,7 +105,24 @@ const eliminar = (id: number) => {
                         <tbody>
                             <tr v-for="informe in informes.data" :key="informe.id_informe" class="border-b border-border/60">
                                 <td class="py-2 pr-3">{{ informe.id_informe }}</td>
-                                <td class="py-2 pr-3">{{ informe.id_asistencia }}</td>
+                                <td class="py-2 pr-3">
+                                    #{{ informe.id_asistencia }}
+                                    <span v-if="informe.asistencia?.sesion?.numero_sesion" class="text-muted-foreground">
+                                        (Sesión {{ informe.asistencia.sesion.numero_sesion }})
+                                    </span>
+                                </td>
+                                <td class="py-2 pr-3">
+                                    {{ informe.asistencia?.sesion?.calendario?.servicio?.nombre ?? '-' }}
+                                </td>
+                                <td class="py-2 pr-3">
+                                    {{ informe.asistencia?.sesion?.fecha_sesion ?? '-' }}
+                                    <span
+                                        v-if="informe.asistencia?.sesion?.hora_inicio || informe.asistencia?.sesion?.hora_fin"
+                                        class="text-muted-foreground"
+                                    >
+                                        {{ informe.asistencia?.sesion?.hora_inicio ?? '--:--' }}-{{ informe.asistencia?.sesion?.hora_fin ?? '--:--' }}
+                                    </span>
+                                </td>
                                 <td class="py-2 pr-3">{{ informe.temas_vistos || '-' }}</td>
                                 <td class="py-2 pr-3">{{ informe.desempenio || '-' }}</td>
                                 <td class="py-2 pr-3 space-x-2">

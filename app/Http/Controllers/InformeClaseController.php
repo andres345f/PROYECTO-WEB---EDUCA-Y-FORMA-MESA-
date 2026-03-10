@@ -13,13 +13,12 @@ class InformeClaseController extends Controller
     public function index(Request $request)
     {
 
-         $id = auth()->user()->tutor->id;
-
-       /*  if($authUser = auth()->user()->isAdmin) {
-        
-        
-        } */
-        $query = InformeClase::with('asistencia.inscripcion.alumno.usuario')
+      
+        $id = auth()->user()->tutor->id;    
+        $query = InformeClase::with([
+            'asistencia.sesion.calendario.servicio:id,nombre',
+            'asistencia.inscripcion.alumno.usuario:id,name',
+        ])
             ->whereHas('asistencia.inscripcion.calendario', function ($query) use ($id) {
                 $query->where('id_tutor', $id);
             })
@@ -34,30 +33,41 @@ class InformeClaseController extends Controller
             $query->where('desempenio', $request->input('desempenio'));
         }
 
+
+          // dd($query);
         return Inertia::render('InformesClase/Index', [
             'informes' => $query->paginate(10)->withQueryString(),
             'filters' => $request->only(['search', 'desempenio']),
         ]);
     }
 
-    public function create()
-    {
-        $sesiones = Asistencia::with('sesion', 'inscripcion.alumno.usuario')
-            ->whereDoesntHave('informe')
-            ->orderByDesc('created_at')
-            ->get();
+   public function create()
+{
+    $id = auth()->user()->tutor->id;
 
-        return Inertia::render('InformesClase/Create', [
-            'sesiones' => $sesiones->map(fn($asistencia) => [
-                'id' => $asistencia->id,
-                'fecha_sesion' => $asistencia->sesion?->fecha_sesion,
-                'numero_sesion' => $asistencia->sesion?->numero_sesion,
-            ])->values(),
-        ]);
-    }
+    $sesiones = Asistencia::with('sesion.calendario.servicio', 'inscripcion.alumno.usuario')
+        ->whereHas('sesion.calendario', function ($query) use ($id) {
+            $query->where('id_tutor', $id);
+        })
+        ->whereDoesntHave('informe')
+        ->orderByDesc('created_at')
+        ->get();
 
+    return Inertia::render('InformesClase/Create', [
+        'sesiones' => $sesiones->map(fn($asistencia) => [
+            'id' => $asistencia->id,
+            'fecha_sesion' => $asistencia->sesion?->fecha_sesion,
+            'hora_inicio' => $asistencia->sesion?->hora_inicio,
+            'hora_fin' => $asistencia->sesion?->hora_fin,
+            'numero_sesion' => $asistencia->sesion?->numero_sesion,
+            'servicio_nombre' => $asistencia->sesion?->calendario?->servicio?->nombre,
+        ])->values(),
+    ]);
+}
     public function store(Request $request)
     {
+
+        //dd("llego al store");
         $validated = $request->validate([
             'id_asistencia' => 'required|exists:asistencia,id|unique:informeclase,id_asistencia',
             'temas_vistos' => 'nullable|string',
@@ -84,7 +94,7 @@ class InformeClaseController extends Controller
 
     public function edit(InformeClase $informes_clase)
     {
-        $sesiones = Asistencia::with('sesion', 'inscripcion.alumno.usuario')
+        $sesiones = Asistencia::with('sesion.calendario.servicio', 'inscripcion.alumno.usuario')
             ->where(function ($query) use ($informes_clase) {
                 $query->whereDoesntHave('informe')
                     ->orWhere('id', $informes_clase->id_asistencia);
@@ -97,7 +107,10 @@ class InformeClaseController extends Controller
             'sesiones' => $sesiones->map(fn($asistencia) => [
                 'id' => $asistencia->id,
                 'fecha_sesion' => $asistencia->sesion?->fecha_sesion,
+                'hora_inicio' => $asistencia->sesion?->hora_inicio,
+                'hora_fin' => $asistencia->sesion?->hora_fin,
                 'numero_sesion' => $asistencia->sesion?->numero_sesion,
+                'servicio_nombre' => $asistencia->sesion?->calendario?->servicio?->nombre,
             ])->values(),
         ]);
     }

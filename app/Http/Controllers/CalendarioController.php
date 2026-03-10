@@ -81,6 +81,9 @@ class CalendarioController extends Controller
             'disponibilidades.*.hora_cierre' => 'required|date_format:H:i|after:disponibilidades.*.hora_apertura',
         ], [
             'id_servicio.required' => 'El campo servicio es obligatorio.',
+            'costo_total.required' => 'El campo costo total es obligatorio.',
+            'duracion_sesion_minutos.required' => 'El campo duración de sesión es obligatorio.',
+        
             'disponibilidades.required' => 'Debes registrar al menos una disponibilidad.',
             'disponibilidades.min' => 'Debes registrar al menos una disponibilidad.',
             'numero_sesiones.required_if' => 'El número de sesiones es obligatorio para paquetes fijos.',
